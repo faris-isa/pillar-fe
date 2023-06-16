@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "FE-FONT";
+    src: url("lib/fonts/FE-FONT.TTF");
+  }
+
+
+body {
+    margin: 0;
+    padding:0;
+    background-color: #F8F9FB;
+    font-family: -apple-system, BlinkMacSystemFont, 'Nunito','Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #F8F8FA;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+@layer components{
+    .menu-btn{
+        @apply hover:bg-white rounded-lg px-2 py-2 hover:shadow-sm;
+    }
+}
+
+.map-layer, .leaflet-tile-container {
+    filter: grayscale(0);
+    /* -webkit-filter: var(--mapfilter); */
+}
+.card-min{
+    @apply drop-shadow-md overflow-hidden bg-white rounded-lg break-all
+}
+
+.card{
+    @apply card-min m-3  h-[calc(100%-1.5rem)] 
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+  /* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    @apply rounded-lg
+}
+
+  /* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    @apply rounded-lg
+}
+
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+[contenteditable=true]:empty:before {
+    content: attr(placeholder);
+    color:gray;
+}
