@@ -1,4 +1,4 @@
-import {redirect, type RequestEvent } from '@sveltejs/kit'
+import { fail, redirect, type RequestEvent } from '@sveltejs/kit'
 import type { Actions, PageServerLoad } from './$types';
 import config from "$lib/config.json";
 
@@ -23,7 +23,7 @@ export const actions: Actions = {
         const password = dataForm.get('password');
 
         if(!username || !password){
-            return invalid(400, {
+            return fail(400, {
                 statusCode: 400,
                 error: true,
                 message: "Form required !",
@@ -49,7 +49,7 @@ export const actions: Actions = {
             ).json();
             const statusCode  = res.statusCode;
             if (statusCode != 200){
-                return invalid(statusCode, {
+                return fail(statusCode, {
                     statusCode,
                     error: true,
                     message: res.message,
@@ -57,7 +57,7 @@ export const actions: Actions = {
                 })
             }
         } catch (error) {
-            return invalid(503, {
+            return fail(503, {
                 statusCode: 503,
                 error: true,
                 message: "Service Unavailable"

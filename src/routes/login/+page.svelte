@@ -9,30 +9,10 @@
 </script>
 
 <style>
-    .toosmall{
-        @apply hidden
-    }
-    @media only screen and (max-height: 868px) {
-        .toosmall{
-            @apply flex
-        }
-        .preventsmall{
-            @apply hidden
-        }
-    }
-</style>
-<div class="lg:hidden h-screen flex z-20 justify-center items-center">
-    <span>Sorry we doesn't support Mobile Version</span>
-</div>
-<div class="toosmall lg:opacity-100 opacity-0 lg:relative absolute top-0  h-screen z-10 justify-center items-center">
-    <span>Your screen height is too small, please zoom out (ctrl + -)</span>
-</div>
 
-<div class="preventsmall lg:flex flex-col hidden justify-center items-center h-screen">
-    <div class="px-8 py-6 mt-4 text-left bg-white drop-shadow-2xl rounded-lg">
-        <div class="flex justify-center">
-            <img src="/logo.png" class="h-20" alt="">
-        </div>
+</style>
+<div class="flex flex-col justify-center items-center h-screen w-10/12 lg:w-1/4 mx-auto">
+    <div class="px-8 py-6 mt-4 text-left bg-white drop-shadow-2xl rounded-lg w-full">
         <h3 class="text-2xl font-bold text-center">Login to your account</h3>
         <div class="{(form?.error) ? "flex" : "hidden"} bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
             <div class="flex flex-col">
