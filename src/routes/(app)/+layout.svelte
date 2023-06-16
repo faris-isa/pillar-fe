@@ -113,8 +113,8 @@
         </nav>
     </div>
     <div class="absolute ml-[8%] z-10 flex flex-col space-y-10 mt-[2.5rem] {isHidden ? "hidden" : "block"}">
-        <div class="" style="color:{activeLink["fifo"] ? activeColor : defaultColor}">LIFO</div>
-        <div class="" style="color:{activeLink["lifo"] ? activeColor : defaultColor}">FIFO</div>
+        <div class="" style="color:{activeLink["fifo"] ? activeColor : defaultColor}">FIFO</div>
+        <div class="" style="color:{activeLink["lifo"] ? activeColor : defaultColor}">LIFO</div>
         <div class="" style="color:{activeLink["prioritas"] ? activeColor : defaultColor}">Prioritas</div>
     </div>
     <div class="col-span-9 {isHidden ? "" : "ml-[8%]"}">

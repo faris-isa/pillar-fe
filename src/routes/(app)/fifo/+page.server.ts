@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ cookies, locals, parent }) => {
 
 	const fetchData = async () => {
 		try {
-			const res = await (await fetch(config.domain + "/static/prioritas.json", {headers: {token : token}, mode: "cors", credentials: "include"})).json();
+			const res = await (await fetch(config.domain + "/inventory/detail", {headers: {token : token}, mode: "cors", credentials: "include"})).json();
 			const data = res.message == "OK" ? res.data : [];
 			return data;
 		} catch (error) {
@@ -17,6 +17,6 @@ export const load: PageServerLoad = async ({ cookies, locals, parent }) => {
     
 	return {
 		user: locals.user,
-		priorities: fetchData()
+		inventory: fetchData()
 	}
 }
