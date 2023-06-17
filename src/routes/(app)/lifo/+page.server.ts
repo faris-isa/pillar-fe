@@ -1,9 +1,20 @@
 import type { PageServerLoad } from "./$types"
 import config from "$lib/config.json"
+import { fail, type Actions, type RequestEvent } from "@sveltejs/kit";
 
 export const load: PageServerLoad = async ({ cookies, locals, parent }) => {
     await parent()
 	const token: any = cookies.get('token');
+
+	const fetchOption = async () => {
+		try {
+			const res = await (await fetch(config.domain + "/inventory", {headers: {token : token}, mode: "cors", credentials: "include"})).json();
+			const data = res.message == "OK" ? res.data : [];
+			return data;
+		} catch (error) {
+			return [];
+		}
+    }
 
 	const fetchData = async () => {
 		try {
@@ -17,6 +28,91 @@ export const load: PageServerLoad = async ({ cookies, locals, parent }) => {
     
 	return {
 		user: locals.user,
+		option: fetchOption(),
 		inventory: fetchData()
 	}
+}
+
+export const actions: Actions = {
+    addItem:async ({ request, cookies }: RequestEvent) => {
+		const token: any = cookies.get('token');
+
+        const dataForm = await request.formData();
+        const kode_barang = dataForm.get('valueBarang');    
+        const serial_number = dataForm.get('serial_number');
+
+		const serialNumberList = [];
+
+		for (let i = 0; i < 1; i++) {
+			serialNumberList.push({serial_number})
+		}
+
+        if(!kode_barang){
+            return fail(403, {
+                error: true,
+                message: 'Please, form required  !',
+                kode_barang,
+				serial_number
+            })
+        }
+
+        let res = await (await fetch(config.domain + "/inventory/serial", {
+            headers: {
+                token: token, 
+                'Content-Type': 'application/json'
+            }, mode: "cors", method: "POST",
+            body: JSON.stringify({
+				kode_barang,
+				serial_number: serialNumberList
+            })
+        })).json()
+        const statusCode  = res.statusCode;
+		if (statusCode > 200){
+			return fail(statusCode, {
+				error: true,
+				message: res.message,
+				kode_barang
+			})
+		}
+
+		const data = res.message == "OK" ? res.data[0] : [];
+		return data;
+    },
+	
+    fifoSubmit:async ({ request, cookies }: RequestEvent) => {
+		const token: any = cookies.get('token');
+
+        const dataForm = await request.formData();
+        const kode_barang = dataForm.get('valueBarang');    
+
+        if(!kode_barang){
+            return fail(403, {
+                error: true,
+                message: 'Please, form required  !',
+                kode_barang
+            })
+        }
+
+        let res = await (await fetch(config.domain + "/inventory/lifo", {
+            headers: {
+                token: token, 
+                'Content-Type': 'application/json'
+            }, mode: "cors", method: "POST",
+            body: JSON.stringify({
+				kode_barang
+            })
+        })).json()
+        const statusCode  = res.statusCode;
+		if (statusCode > 200){
+			return fail(statusCode, {
+				error: true,
+				message: res.message,
+				kode_barang
+			})
+		}
+
+		const data = res.message == "OK" ? res.data[0] : [];
+		return data;
+        
+    }
 }

@@ -19,7 +19,7 @@
 
     const collections: selectOption[] = [];
 
-    let selected: null = null, removeMode = false, addMode = true;
+    let selected: null = null, removeMode = false, addMode = false;
 
     function normalizeDate(date: Date) {
         const normalizedDateTime = new Date(date).toLocaleString('id-ID');
@@ -76,8 +76,6 @@
             });
             return filtered;
         });
-        console.log(data);
-        console.log($inventoryData);
     }
 
     onMount(()=>{

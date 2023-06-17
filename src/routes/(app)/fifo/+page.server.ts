@@ -47,8 +47,6 @@ export const actions: Actions = {
 			serialNumberList.push({serial_number})
 		}
 
-		console.log(serialNumberList);
-
         if(!kode_barang){
             return fail(403, {
                 error: true,
